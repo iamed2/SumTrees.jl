@@ -4,11 +4,12 @@ os:
   - linux
   - osx
 julia:
-  - release
+  - 0.4
   - nightly
 notifications:
   email: false
-# uncomment the following lines to override the default test script
-#script:
-#  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-#  - julia -e 'Pkg.clone(pwd()); Pkg.build("SumTrees"); Pkg.test("SumTrees"; coverage=true)'
+script:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia -e 'Pkg.clone(pwd()); Pkg.build("SumTrees"); Pkg.test("SumTrees"; coverage=true)'
+after_success:
+- julia -e 'cd(Pkg.dir("SumTrees")); Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'

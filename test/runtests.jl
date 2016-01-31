@@ -1,5 +1,9 @@
 using SumTrees
-using Base.Test
+if VERSION < v"0.5-"
+    using BaseTestNext
+else
+    using Base.Test
+end
 
 @testset "Tiny" begin
     @testset "Default Type" begin
